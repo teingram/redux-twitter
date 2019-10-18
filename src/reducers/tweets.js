@@ -1,6 +1,6 @@
 import { RECEIVE_TWEETS } from '../actions/tweets'
 
-function tweets(state, action) {
+function tweets(state = null, action) {
     switch(action.type) {
         case RECEIVE_TWEETS:
         return {
