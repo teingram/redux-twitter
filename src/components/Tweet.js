@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import { formatTweet, formatDate } from '../utils/helpers'
+import { tweetLiked } from '../actions/tweetLiked'
 
 const imgCSS = {
     width: 40,
@@ -9,16 +10,25 @@ const imgCSS = {
     borderRadius: 20
   };
 
-function Tweet(props) {
+function Tweet({authedUser, dispatch, tweet}) {
+
+    const handleLike = (authedUser, id) => {
+        console.log('authedUser', authedUser);
+        console.log('id', id);
+        dispatch(tweetLiked(authedUser, id));
+    }
+
    const {
         name,
+        id,
         timestamp,
         text,
         avatar,
         likes,
         replies
-      } = props.tweet
+      } = tweet
       const formattedTime = formatDate(timestamp)
+
 
     return (
         <div>
@@ -26,7 +36,12 @@ function Tweet(props) {
             <div>{text}</div>
             <img style={imgCSS} alt='Author' src={avatar}/>
             <div>{formattedTime}</div>
-            <button><span role="img" aria-label="arrow emoji">↩</span>{replies}</button><button><span role="img" aria-label="heart emoji">💚</span>{likes}</button>
+            <div>
+                <span>
+                    <button ><span role="img" aria-label="arrow emoji">↩</span>{replies}</button>
+                    <button onClick={() => handleLike(authedUser, id)}><span role="img" aria-label="heart emoji">💚</span>{likes}</button>
+                </span>
+            </div>
         </div>
         )
 }
@@ -37,10 +52,11 @@ function mapStateToProps(state, ownProps) {
     const author = state.users[aTweet.author];
     const authedUser = state.authedUser;
     const tweet = formatTweet(aTweet, author, authedUser, null)
-    console.log('aTweet', aTweet, 'author', author, 'authedUser', authedUser)
+    
     return {
+        authedUser,
         tweet
     }
 }
 
-export default connect(mapStateToProps)(Tweet)
+export default connect(mapStateToProps,)(Tweet)
