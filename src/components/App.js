@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Tweets from './Tweets'
 import Nav from './Nav'
 import Post from './Post'
+import TweetPage from './TweetPage'
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ function App() {
               <Switch>
                 <Route path="/" exact component={Tweets} />
                 <Route path="/post" component={Post} />
+                <Route path="/tweet/:id" component={TweetPage} />
               </Switch>
             </div>
             : null}

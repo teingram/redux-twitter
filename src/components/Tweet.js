@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 
 import { formatTweet, formatDate } from '../utils/helpers'
 import { tweetLiked } from '../actions/tweetLiked'
@@ -11,6 +12,11 @@ const imgCSS = {
   };
 
 function Tweet({authedUser, dispatch, tweet}) {
+    const [go, setGo] = useState(false)
+    const handleGoToTweet = () => {
+        console.log('Here is the id', id)
+        setGo((go) => go = true)
+    }
 
     const handleLike = (authedUser, id) => {
         console.log('authedUser', authedUser);
@@ -28,10 +34,11 @@ function Tweet({authedUser, dispatch, tweet}) {
         replies
       } = tweet
       const formattedTime = formatDate(timestamp)
-
-
-    return (
-        <div>
+        
+    return go === true ? <Redirect to={`/tweet/${id}`} /> :
+    
+    (
+        <div onClick={() => handleGoToTweet()}>
             <div>{name}</div>
             <div>{text}</div>
             <img style={imgCSS} alt='Author' src={avatar}/>
@@ -43,8 +50,9 @@ function Tweet({authedUser, dispatch, tweet}) {
                 </span>
             </div>
         </div>
-        )
+    )
 }
+            
 
 function mapStateToProps(state, ownProps) {
 
@@ -59,4 +67,4 @@ function mapStateToProps(state, ownProps) {
     }
 }
 
-export default connect(mapStateToProps,)(Tweet)
+export default connect(mapStateToProps)(Tweet)

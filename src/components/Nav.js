@@ -9,7 +9,7 @@ function Nav() {
             <NavLink to="/" exact activeClassName='active'>Tweets</NavLink>
           </li>
           <li>
-            <NavLink to="/post" activeClassName='active'>Post</NavLink>
+            <NavLink to="/post" activeClassName='active'>New Tweet</NavLink>
           </li>
         </ul>
       </nav>
