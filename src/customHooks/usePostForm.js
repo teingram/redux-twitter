@@ -12,7 +12,6 @@ function usePostForm() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Oops, I tweeted...')
         history.push('/')
         dispatch(handleAddTweet(input))
     }

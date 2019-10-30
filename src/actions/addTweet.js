@@ -5,7 +5,7 @@ import { saveTweet } from '../utils/api'
 export const ADD_TWEET = 'ADD_TWEET';
 
 export function addTweet(tweet) {
-    console.log(tweet)
+   
     return {
         type: ADD_TWEET,
         tweet
