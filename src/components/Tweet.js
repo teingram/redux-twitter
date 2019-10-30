@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import { formatTweet, formatDate } from '../utils/helpers'
 import { tweetLiked } from '../actions/tweetLiked'
@@ -12,15 +12,8 @@ const imgCSS = {
   };
 
 function Tweet({authedUser, dispatch, tweet}) {
-    const [go, setGo] = useState(false)
-    const handleGoToTweet = () => {
-        console.log('Here is the id', id)
-        setGo((go) => go = true)
-    }
-
     const handleLike = (authedUser, id) => {
-        console.log('authedUser', authedUser);
-        console.log('id', id);
+  
         dispatch(tweetLiked(authedUser, id));
     }
 
@@ -35,10 +28,8 @@ function Tweet({authedUser, dispatch, tweet}) {
       } = tweet
       const formattedTime = formatDate(timestamp)
         
-    return go === true ? <Redirect to={`/tweet/${id}`} /> :
-    
-    (
-        <div onClick={() => handleGoToTweet()}>
+    return (
+        <Link to={`/tweet/${id}`}>
             <div>{name}</div>
             <div>{text}</div>
             <img style={imgCSS} alt='Author' src={avatar}/>
@@ -49,7 +40,7 @@ function Tweet({authedUser, dispatch, tweet}) {
                     <button onClick={() => handleLike(authedUser, id)}><span role="img" aria-label="heart emoji">💚</span>{likes}</button>
                 </span>
             </div>
-        </div>
+        </Link>
     )
 }
             

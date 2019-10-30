@@ -7,7 +7,7 @@ function Post() {
     const isDisabled = input === '';
 
     return (
-        <div>
+        <div style={{margin: 20}}>
             <form onSubmit={handleSubmit}>
                 <h3 style={{marginBottom: 5}}>Write a Tweeter</h3>
                 <input 
